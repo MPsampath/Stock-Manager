@@ -1,0 +1,7 @@
+// Configaration file for bable
+{
+    "presets": [
+        "env", 
+        "stage-0"
+    ]
+}
