@@ -57,3 +57,26 @@ export const deleteUser =(req,res) => {
     });
    
 };
+
+export const userLoging =(req,res) => {
+  const {email,password} = req.body;
+  const checkEMail = Users.findOne({email: email})
+
+  if (checkEMail) {
+    const checkpassword = Users.findOne({password: password})
+    if (checkpassword) {
+      res.json("Loged")
+    }else{
+      res.json("Password is wrong")
+    }
+  }else{
+    res.json("email not exist")
+  }
+  // .then(documents => {
+  //   res.json({messages :"Deleted"});
+  // })
+  // .catch(err => {
+  //   res.json( err);
+  // });
+ 
+};

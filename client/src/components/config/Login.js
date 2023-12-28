@@ -1,14 +1,31 @@
 import React,{ Component ,useEffect, useState} from 'react'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Card, Typography, Flex, Form, Input, Row } from 'antd';
+import axios from 'axios';
+import {useNavigate,Link} from 'react-router-dom'
 
 const { Title } = Typography;
 const rowStyle = {
   'paddingTop':'2%',
 }
 export default function Login(params) {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  
+  const [email , setEmail] = useState('');
+  const [password , setPassword] = useState('');
+  const history = useNavigate();
+  async function onFinish(e){
+   try {
+     await axios.post("http://localhost:4000/login",{
+      email,password
+     })
+     .then(res=>{
+      if (res.data="Loged") {
+        history('/',{state:{id:email}});
+      }
+     })
+   } catch (error) {
+    console.log(error);
+   }
   };
         return(
           <>
@@ -28,10 +45,10 @@ export default function Login(params) {
               }}
               onFinish={onFinish}
               >
-                  <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                  <Input onChange={(e)=>{setEmail(e.target.value)}} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
                   <br/>
                   <br/>
-                  <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
+                  <Input onChange={(e)=>{setPassword(e.target.value)}} prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
                   <br/>
                   <br/>
                   <Flex justify={"center"} align={"center"}>

@@ -145,7 +145,7 @@ export default function Register() {
                     <br/>
                     </Flex>
                     <Flex justify={"center"} align={"center"}>
-                    <a href="/">Login</a>
+                    <a href="/login">Login</a>
                     </Flex>
                 </Form>
                 </Card>
